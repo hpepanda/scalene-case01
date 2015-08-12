@@ -1,0 +1,4 @@
+- hosts: [all]
+  sudo: yes
+  roles:
+  - config_src_list

@@ -1,0 +1,5 @@
+# replace sources.list to refer local repository serveer
+- name: Replace apt repository src file
+  template: src=sources.list dest=/etc/apt/sources.list
+  notify:
+   - update index file

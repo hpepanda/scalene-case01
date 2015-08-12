@@ -1,0 +1,8 @@
+- name: Create HAProxy user
+  mysql_user: name='haproxy' host='%' password='' priv=*.*:ALL state=present
+- name: Create replication user
+  mysql_user: name='slave_user' host='%' password='password' priv=*.*:"REPLICATION SLAVE" state=present
+- name: Create hpsa user
+  mysql_user: name='hpsa' host='%' password='demo' priv=*.*:ALL state=present
+- name: Unlock tables
+  command: sudo mysql -e 'UNLOCK TABLES'

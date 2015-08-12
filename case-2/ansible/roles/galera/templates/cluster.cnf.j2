@@ -1,0 +1,27 @@
+#{{ ansible_managed }}
+
+[mysqld]
+query_cache_size=0
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2
+query_cache_type=0
+bind-address=0.0.0.0
+
+wsrep_provider="/usr/lib/galera/libgalera_smm.so"
+wsrep_provider_options="gcache.size=2G"
+wsrep_cluster_name="{{ galera_cluster_name }}"
+wsrep_sst_method=rsync
+wsrep_sst_auth={{ galera_cluster_user }}:{{ galera_cluster_password }}
+wsrep_node_name="{{ ansible_fqdn }}"
+
+
+{% if galera_add_node == "False" %}
+	{% if galera_master == "True" %}
+		wsrep_cluster_address=gcomm://
+	{% else %}
+		wsrep_cluster_address="gcomm://{{ galera_cluster_members }}"
+	{% endif %}
+{% endif %}
+
+wsrep_node_address="{{ galera_node_ip }}"

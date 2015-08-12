@@ -1,0 +1,4 @@
+- include: install_git_maven.yml
+- include: clone_scr.yml  
+#- include: compile_deploy.yml  
+- include: deploy.yml

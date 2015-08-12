@@ -1,0 +1,6 @@
+- name: Copying DB skel from sql
+  copy: src=./db/dump.sql dest=/tmp
+- name: Create DB hpsa_demo
+  mysql_db: name=hpsa_demo state=present
+- name: Import DB
+  mysql_db: name=hpsa_demo state=import target=/tmp/dump.sql

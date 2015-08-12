@@ -1,0 +1,21 @@
+- name: update apt cache
+  apt: update_cache=yes force=yes
+
+- name: install mysql-client
+  apt: name=mysql-client state=present force=yes
+
+- name: install haproxy
+  apt: name=haproxy state=present force=yes
+
+- name: Enable init script
+  replace: dest='/etc/default/haproxy'
+    regexp='ENABLED=0'
+    replace='ENABLED=1'
+
+- name: Update HAProxy config
+  template: src=haproxydb.cfg
+      dest=/etc/haproxy/haproxy.cfg
+      backup=yes
+  notify:
+    - restart haproxy
+

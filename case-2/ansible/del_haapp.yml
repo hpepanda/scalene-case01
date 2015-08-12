@@ -1,0 +1,4 @@
+- hosts: [all]
+  sudo: yes
+  roles:
+  - del_haapp 

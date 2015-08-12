@@ -1,0 +1,15 @@
+/target/
+/.settings/
+
+*.class
+.project
+.classpath
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs
+hs_err_pid*

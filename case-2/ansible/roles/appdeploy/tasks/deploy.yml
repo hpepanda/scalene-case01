@@ -1,0 +1,12 @@
+- name: Create folder structure
+  file: path=/var/lib/tomcat7/webapps/expenses state=directory
+
+- name: Deploy application archive
+  unarchive: src=/tmp/hpsa/case-2/bin/expenses.war dest=/var/lib/tomcat7/webapps/expenses copy=no
+
+- name: Update connection string
+  template: src=application.properties
+     dest=/var/lib/tomcat7/webapps/expenses/WEB-INF/classes/application.properties
+
+- name: Restart Tomcat 7
+  action: service name=tomcat7 state=restarted

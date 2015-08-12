@@ -1,0 +1,11 @@
+galera_root_password: demo
+galera_maintenance_password: demo
+galera_cluster_user: hpsa
+galera_cluster_password: demo
+galera_cluster_name: demogaleracluster
+galera_bootstrap: no
+galera_bind_address: 127.0.0.1
+galera_setup_repository: yes
+galera_install_packages: yes
+galera_master: "False"
+galera_add_node: "False"

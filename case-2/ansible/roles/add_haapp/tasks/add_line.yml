@@ -1,0 +1,5 @@
+- name: Addind server to haproxy
+  lineinfile: dest=/etc/haproxy/haproxy.cfg line='    server {{ node_name }} {{ ipaddr }}:8080 cookie A check'
+  notify:
+   - restart haproxy 
+

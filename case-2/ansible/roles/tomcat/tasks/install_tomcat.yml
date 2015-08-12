@@ -1,0 +1,7 @@
+- name: Install apache tomcat 7
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
+  with_items:
+    - tomcat7
+    - tomcat7-docs
+    - tomcat7-admin
+    - tomcat7-examples

@@ -1,0 +1,16 @@
+- name: Stop service
+  service: name=mysql state=stopped
+
+- name: Galera configuration file
+  template: src=cluster.cnf.j2 dest=/etc/mysql/conf.d/cluster.cnf owner=root group=root mode=0640
+
+- name: MariaDB configuration file
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0644
+
+- name: Start cluster master service
+  raw: sudo service mysql start --wsrep-new-cluster
+  when: galera_master == "True"
+  
+- name: Start cluster slave service
+  raw: sudo service mysql start
+  when: galera_master == "False" and galera_add_node == "False"

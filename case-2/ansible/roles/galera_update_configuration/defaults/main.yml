@@ -1,0 +1,3 @@
+galera_cluster_user: hpsa
+galera_cluster_password: demo
+galera_cluster_name: demogaleracluster

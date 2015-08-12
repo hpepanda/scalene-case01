@@ -1,0 +1,4 @@
+- name: Install unzip
+  apt: name={{ item }} state=present update_cache=yes force=yes
+  with_items:
+    - unzip

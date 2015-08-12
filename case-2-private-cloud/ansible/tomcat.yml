@@ -1,0 +1,9 @@
+########################################################################
+#ansible-playbook tomcat.yml -u ubuntu -s -l hostname                  #
+#ansible-playbook tomcat.yml -u ubuntu -s -l hostname -CD #DEBUG MODE  #
+########################################################################
+
+- hosts: [all]
+  sudo: yes
+  roles:
+  - tomcat

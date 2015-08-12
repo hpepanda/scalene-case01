@@ -1,0 +1,12 @@
+- name: Update connection string
+  template: src=application.properties
+     dest=/tmp/hpsa/hpsa-demo-case2/source/demo-case2/src/main/resources/application.properties
+
+# Compile demo sources
+- name: Compile demo sources (maven 2)
+  command: mvn -f /tmp/hpsa/hpsa-demo-case2/source/demo-case2/pom.xml package
+
+- name: Deploy application archive
+  command: mv /tmp/hpsa/hpsa-demo-case2/source/demo-case2/target/expenses.war /var/lib/tomcat7/webapps
+  notify:
+    - restart tomcat7
