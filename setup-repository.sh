@@ -10,9 +10,6 @@ source ./repository_config.sh
 #Install common for all cases packages
 apt-get -y --force-yes install ${COMMON_PACKAGES[*]}
 
-#Get sources from git
-export GIT_LOCAL_REPO=/home/hpsa-demo
-
 mkdir -p /home/out
 
 ###Install packages for compiling
