@@ -1,0 +1,446 @@
+a {
+    text-decoration: underline;
+    color: #0033FF;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    line-height: normal;
+}
+
+#menu td {
+    color: #333333;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    line-height: normal;
+}
+
+body {
+    width: 1250px
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arial Bold', 'Arial';
+}
+p, div {
+    font-family: 'Arial Bold', 'Arial';
+}
+
+#heading h3 {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 32px;
+}
+
+#main h4 {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+}
+
+#login-form {
+    text-align: right;
+    margin-left: auto;
+    padding-top: 20px;
+    padding-right: 11px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: left;
+    line-height: normal;
+
+}
+
+#login-form table {
+    align: right;
+    width: auto;
+    float: right;
+}
+
+#login-form td {
+    padding: 2px;
+    vertical-align: center;
+}
+
+#login-form hr {
+    margin: 5px;
+}
+
+#heading p {
+    text-align: right;
+    margin-left: auto;
+    padding-right: 11px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    color: #333333;
+    text-align: left;
+    line-height: normal;
+    font-size: 75%;
+    margin-bottom: 5px;
+}
+
+#statistics {
+    text-align: right;
+    margin-left: auto;
+    padding-right: 11px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: left;
+    line-height: normal;
+}
+
+#menu {
+    background-image: url(img/menu-back.png);
+    background-position: -13px 0%;
+    background-repeat: no-repeat;
+    height: 486px;
+
+}
+
+#menu table {
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+#menu table td {
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 1px solid gray;
+    background-color: white;
+    text-align: center;
+}
+
+#main {
+    text-align: left;
+    margin-left: -25px;
+}
+
+#main #filter td {
+    border: none;
+    text-align: left;
+    vertical-align: bottom;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    line-height: normal;
+
+}
+
+#main #filter thead td {
+    padding-bottom: 5px;
+    padding-top: 20px;
+}
+
+#main #filter tbody td {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+#main #filter input, #main #filter select {
+    width: 196px;
+}
+
+
+#main #filter .spacer {
+    width: 0px;
+
+}
+
+#main #filter p {
+    padding-left: 9px;
+    margin-bottom: 0px;
+}
+
+#main #filter button {
+    width: 120px;
+}
+
+#main table, #main td {
+    border: 1px solid gray;
+    text-align: center;
+    table-layout: fixed;
+}
+
+#main thead td {
+    min-width: 163px;
+}
+
+#main #select, #main #date {
+    min-width: 117px;
+}
+
+#main #category {
+    min-width: 160px;
+}
+
+#main #vendor {
+    min-width: 144px;
+}
+
+#main #amount,#main #currency {
+    min-width: 64px;
+}
+
+#main #receipt {
+    min-width: 141px;
+}
+
+#main #personal {
+    min-width: 83px;
+}
+
+#main #action {
+    min-width: 115px;
+}
+
+
+#main thead td {
+    padding: 4px;
+}
+
+#main tbody td {
+    padding: 13px;
+}
+
+.expenses-container, .reports-container {
+    border: 1px solid gray;
+    padding: 10px;
+    width: 1040px;
+}
+
+#main .expenses tbody td {
+    padding: 0px;
+}
+#main .expenses thead td {
+    padding: 8px;
+}
+
+#main .expenses input {
+    width: 90%;
+}
+
+#main .expenses select {
+    width: 90%;
+}
+
+#add-new-container {
+    padding-right: 20px;
+    text-align: right;
+}
+
+#add-new {
+    top: 0px;
+    width: 144px;
+    height: 25px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+}
+
+#add-selected-container {
+    
+    text-align: center;
+}
+
+#add-selected {
+    width: 200px;
+    height: 25px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#receipt-header {
+    color: red;
+    font-weight: bold;
+    min-width: 600px;
+}
+
+#receipt-main {
+    min-width: 600px;
+}
+
+#receipt-main tbody td {
+    vertical-align: top;
+}
+
+#receipt {
+    padding-left: 50px;
+}
+
+#error h2 {
+    color: red;
+}
+
+.expenses-report {
+    width: 1017px;
+}
+
+#total, #submitReport {
+    text-align: center;
+}
+
+#total {
+    padding: 10px;
+    font-family: 'Arial Bold', 'Arial';
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    color: #333333;
+}
+
+#submitReport {
+    padding-top: 10px;
+}
+
+.expenses-report {
+    font-size: 13px;
+    color: #333333;
+    font-family: 'Arial Bold', 'Arial';
+    font-style: normal;
+}
+
+.expenses-report thead td {
+    font-weight: bold;
+
+}
+
+.expenses-report #currency {
+    width: 75px;
+}
+
+#main #report-header,#main #report-header td {
+    border: none;
+    padding: 5px;
+}
+
+#main #report-header td {
+    text-align: left;
+}
+
+
+#main #report-header .label-row {
+    width: 155px;
+    text-align: right;
+    vertical-align: top;
+}
+
+#main #report-header #reportName,#main #report-header #purpose,#main #report-header #approver, #main #report-header #cc {
+    width: 363px;
+}
+
+#main #report-header textarea {
+    rows: 6;
+}
+
+#main #report-header #expense-date {
+    width: 170px;
+}
+
+#main #report-header #expense-vendor {
+    width: 363px;
+}
+
+#main #report-header #expense-category {
+    width: 198px;
+}
+
+#main #report-header #expense-amount {
+    width: 70px;
+}
+
+#main #report-header p {
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: left;
+    line-height: normal;
+    color: #FF0000;
+}
+
+#main #report-header #save-section {
+    text-align: right;
+}
+
+#save {
+    width: 112px;
+    height: 25px;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    text-decoration: none;
+    color: #666666;
+    text-align: center;
+}
+
+.reports-container-view {
+    border: none;
+}
+
+.reports-container-view textarea.view {
+    border: none;
+    background-color: white;
+    font-family: 'Arial Bold', 'Arial';
+    font-weight: 700;
+    font-style: normal;
+}
+
+.reports-container-view .bold {
+    font-family: 'Arial Bold', 'Arial';
+    font-weight: 700;
+    font-style: normal;
+}
+
+.reports-container-view .spacer {
+    height: 50px;
+}
+
+input[type=file] {
+    max-width: 200px;
+    margin-bottom: 5px;
+}
+
+#main td img {
+    max-width: 300px;
+}
+
+.editInline, .editInlineReport {
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+
+#inlineTemplate td input, #editing td input{
+   width: 100%;
+}

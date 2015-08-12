@@ -1,0 +1,116 @@
+---
+- hosts: case-0
+  remote_user: ubuntu
+  sudo: yes
+
+  vars:
+    mysql_password: p4ssw0rd
+    app_mysql_user: hpsa
+    app_mysql_password: demo
+    app_path: /home/hpsa-demo/case-0/source/
+    dump_path: /home/hpsa-demo/case-0/database/dump_blob.sql
+    app_root: /home/hpsa-demo/
+    app_db_name: hpsa_demo
+
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: ubuntu
+
+    ##
+    # Apt package installation of required software.
+    #
+    - name: Insall MySQL
+      action: apt pkg={{ item }} state=installed update_cache=yes
+      with_items:
+        - mysql-server
+        - mysql-client
+        - unzip
+        - python-mysqldb
+    - name: Install Tomcat7
+      action: apt pkg=tomcat7 state=installed update_cache=yes
+      tags: common
+    - name: Install git, maven2
+      action: apt pkg={{ item }} state=installed update_cache=yes
+      with_items:
+        - git-core
+        - maven2
+
+    ##
+    # MySQL database setup.
+    #
+    - name: MySQL | Configuration file, my.cnf
+      action: template src=templates/etc-mysql-my-cnf.j2.yaml dest=/etc/mysql/my.cnf
+
+    ##
+    # Restart services
+    #
+    - name: Restart MySQL
+      action: service name=mysql state=restarted
+
+    ##
+    # MySQL Authentication
+    #
+    - name: MySQL | Authentication      
+      mysql_user: name=root host={{ item }} password={{ mysql_password }} state=present update_password=always
+      with_items:
+        - $ansible_hostname
+        - 127.0.0.1
+        - ::1
+        - localhost      
+      mysql_user:
+        name={{ app_mysql_user }}
+        host=localhost
+        priv=*.*:ALL,GRANT state=present
+        password={{ app_mysql_password }}
+
+    ##
+    # Clone sources from git
+    - name: Get Case sources from GIT
+      git: 
+        repo=https://hpsa:!Microsoft1@bitbucket.org/hpsa/hpdemo.git
+        dest={{ app_root }}
+
+    - name: Create DB
+      mysql_db: 
+        name={{ app_db_name }}
+        login_user={{ app_mysql_user }}
+        login_password={{ app_mysql_password }}
+        state=present
+    - name: Setup from Dump
+      mysql_db: 
+        name={{ app_db_name }}
+        login_user={{ app_mysql_user }}
+        login_password={{ app_mysql_password }}
+        target={{ dump_path }}
+        state=import
+
+    ##
+    # Install Java 7
+    - name: Add Java repository to sources
+      action: apt_repository repo='ppa:webupd8team/java'
+
+    - name: Autoaccept license for Java
+      action: shell echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+    - name: Update APT package cache
+      action: apt update_cache=yes
+
+    - name: Install Java 7
+      action: apt pkg=oracle-java7-installer state=latest install_recommends=yes
+
+    - name: Set Java 7 Env
+      action: apt pkg=oracle-java7-set-default state=latest install_recommends=yes
+
+    ##
+    # Compile demo sources
+    - name: Compile demo sources (maven 2)
+      command: mvn -f {{ app_path }}pom.xml package
+
+    ##
+    # Deploy web-application
+    - name: Deploy application archive 
+      command: mv {{ app_path }}target/expenses.war /var/lib/tomcat7/webapps
+
+    - name: Restart Tomcat 7
+      action: service name=tomcat7 state=restarted
