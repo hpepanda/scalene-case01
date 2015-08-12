@@ -1,0 +1,4 @@
+1. sudo -s
+2. source ~/Hewlett-Packard0517-openrc.sh
+3. source ./setup-repository.sh
+4. source ./case-[n]-setup.sh
