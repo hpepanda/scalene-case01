@@ -2,7 +2,6 @@
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 INSTANCES_LIST=()
-PUBLICIP_LIST=()
 CLUSTER_IP_MEMBERS=""
 COUNTER=1
 while [ $COUNTER -le $MYSQL_COUNT ]; do
@@ -21,15 +20,14 @@ while [ $COUNTER -le $MYSQL_COUNT ]; do
 
 	sleep 15 # delay for nw_info cache renew. see https://bugs.launchpad.net/nova/+bug/1249065
 
-	nova floating-ip-create |grep $EXTNETNAME | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' > pub_ip/$INSTNAME
+	#nova floating-ip-create |grep $EXTNETNAME | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' > pub_ip/$INSTNAME
 	nova list|grep $INSTNAME|grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'|grep '10.0.0' > local_ip/$INSTNAME
 	read -r LOCALIP < local_ip/$INSTNAME
-	read -r PUBIP < pub_ip/$INSTNAME
+	#read -r PUBIP < pub_ip/$INSTNAME
 
 	INSTANCES_LIST+=("$INSTNAME:$LOCALIP")
-	PUBLICIP_LIST+=("$INSTNAME:$PUBIP")
 
-	nova floating-ip-associate $INSTNAME $PUBIP
+	#nova floating-ip-associate $INSTNAME $PUBIP
 
 	if [ $COUNTER == 1 ]; then
 		CLUSTER_IP_MEMBERS+=$LOCALIP
@@ -68,10 +66,3 @@ done
 # Need to initialize only one instance
 # Data will be shared between instances automatically
 ansible-playbook ansible/createdb.yml -i local_ip/${INSTANCES_LIST[0]%%:*} --private-key=keys/$CLUSTER_PREFIX.pem -u ubuntu -v
-
-for instance in "${PUBLICIP_LIST[@]}" ; do
-	SERVER_NAME=${instance%%:*}
-	PUBLIC_IP=${instance#*:}
-
-	nova remove-floating-ip $SERVER_NAME $PUBLIC_IP
-done

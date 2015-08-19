@@ -6,7 +6,7 @@
     mysql_password: p4ssw0rd
     app_mysql_user: hpsa
     app_mysql_password: demo
-    dump_path: ./database/dump.sql
+    dump_path: ../database/dump.sql
     app_db_name: hpsa_demo
 
   tasks:
@@ -67,8 +67,8 @@
         login_password={{ app_mysql_password }}
         state=present
 
-     - name: Copy Dump file
-       copy: src={{dump_path}} dest=/tmp
+    - name: Copy Dump file
+      copy: src={{dump_path}} dest=/tmp
 
     - name: Setup from Dump
       mysql_db: 
