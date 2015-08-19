@@ -1,0 +1,68 @@
+---
+- hosts: case-1-app
+  remote_user: ubuntu
+  sudo: yes
+
+  vars:
+    mysql_password: p4ssw0rd
+    app_mysql_user: hpsa
+    app_mysql_password: demo
+    app_path: /home/hpsa-demo/hpsa-demo-case2/source/demo-case2/
+    app_properties: src/main/resources/application.properties
+    dump_path: /home/hpsa-demo/hpsa-demo-case2/db/dump.sql
+    app_root: /home/hpsa-demo/
+    app_db_name: hpsa_demo
+
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: ubuntu
+
+    - name: Install Tomcat7
+      action: apt pkg=tomcat7 state=installed update_cache=yes
+      tags: common
+    - name: Install git, maven2
+      action: apt pkg={{ item }} state=installed update_cache=yes
+      with_items:
+        - git-core
+        - maven2
+
+    ##
+    # Clone sources from git
+    - name: Get Case sources from GIT
+      git: 
+        repo=https://hpsa:!Microsoft1@bitbucket.org/hpsa/hpdemo.git
+        dest={{ app_root }}
+
+    - name: Update connection string
+      action: template src=templates/application.j2.properties dest={{ app_path }}{{ app_properties }}
+
+    ##
+    # Install Java 7
+    - name: Add Java repository to sources
+      action: apt_repository repo='ppa:webupd8team/java'
+
+    - name: Autoaccept license for Java
+      action: shell echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+    - name: Update APT package cache
+      action: apt update_cache=yes
+
+    - name: Install Java 7
+      action: apt pkg=oracle-java7-installer state=latest install_recommends=yes
+
+    - name: Set Java 7 Env
+      action: apt pkg=oracle-java7-set-default state=latest install_recommends=yes
+
+    ##
+    # Compile demo sources
+    - name: Compile demo sources (maven 2)
+      command: mvn -f {{ app_path }}pom.xml package
+
+    ##
+    # Deploy web-application
+    - name: Deploy application archive 
+      command: mv {{ app_path }}target/expenses.war /var/lib/tomcat7/webapps
+
+    - name: Restart Tomcat 7
+      action: service name=tomcat7 state=restarted

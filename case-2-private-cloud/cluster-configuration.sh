@@ -42,4 +42,4 @@ export MYSQL_COUNT=3
 #
 # Packages local repository ip
 #
-export PACKAGES_REPOSITORY_IP="10.0.0.63"
+export PACKAGES_REPOSITORY_IP=$(hostname -I)

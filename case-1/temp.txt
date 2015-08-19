@@ -1,0 +1,10 @@
+ssh -i app1.pem ubuntu@15.126.203.36
+ssh -i db1.pem ubuntu@15.126.203.67
+
+/etc/ansible/hosts
+
+sudo ansible-playbook deploy-case-1-db-\[1\].yml --private-key=db1.pem -u ubuntu
+
+sudo ansible-playbook deploy-case-1-app-\[2\].yml --private-key=app1.pem -u ubuntu
+
+mvn -f /

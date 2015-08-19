@@ -1,0 +1,20 @@
+---
+- hosts: [all]
+  sudo: yes
+
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: ubuntu
+
+    - name: Install Tomcat7
+      action: apt pkg=tomcat7 state=installed update_cache=yes force=yes
+      tags: common
+
+    ##
+    # Deploy web-application
+    - name: Deploy application archive 
+      copy: src=/home/out/case-0/expenses.war dest=/var/lib/tomcat7/webapps
+
+    - name: Restart Tomcat 7
+      action: service name=tomcat7 state=restarted

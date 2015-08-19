@@ -1,0 +1,5 @@
+chmod +x ./start-instance.sh
+chmod +x ./create-environment.sh
+source ~/Hewlett-Packard0517-openrc.sh
+create-environment.sh
+
