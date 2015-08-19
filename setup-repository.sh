@@ -5,7 +5,7 @@ apt-get update
 
 #Define required packages
 source ./packages-config.sh
-source ./repository_config.sh
+source ./repository-config.sh
 
 chmod +x ./compile-src.sh
 cp ./compile-src.sh /usr/bin
