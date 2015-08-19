@@ -5,9 +5,6 @@ NETID=bbf314de-c466-4d78-ad47-10a9de081508
 echo "Enter Instance Name"
 read INSTNAME
 
-echo "Enter Source machine IP"
-read SRC_IP
-
 # create rsa keypair for the Instance
 nova keypair-add $INSTNAME > $INSTNAME.pem
 
@@ -21,9 +18,11 @@ chmod 400 $INSTNAME.data
 echo "Wait for ssh port to be opened"
 sleep 300
 
+SRC_IP=$(hostname -I)
 nova list|grep $INSTNAME|grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'|grep '10.0.0' > $INSTNAME.ip
+
 ansible-playbook deploy-case-0-private.yml -i $INSTNAME.ip --private-key=$INSTNAME.pem -u ubuntu -v -e "repo_ip=$SRC_IP"
 
 echo "Now You can login into new instance via SSH"
-echo "Using keyfile: ssh -i $INSTNAME.pem ubuntu@$INSTEXTIP"
+echo "Using keyfile: ssh -i $INSTNAME.pem ubuntu@$(< $INSTNAME.ip)"
 echo "Instance config located in $INSTNAME.data"
