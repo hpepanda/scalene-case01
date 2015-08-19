@@ -7,6 +7,9 @@ apt-get update
 source ./packages-config.sh
 source ./repository_config.sh
 
+chmod +x ./compile-src.sh
+cp ./compile-src.sh /usr/bin
+
 #Install common for all cases packages
 apt-get -y --force-yes install ${COMMON_PACKAGES[*]}
 
