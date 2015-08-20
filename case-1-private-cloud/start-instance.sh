@@ -12,9 +12,6 @@ nova boot --flavor "101" --image "564be9dd-5a06-4a26-ba50-9453f972e483" --key_na
 chmod 400 $INSTNAME.pem
 chmod 400 $INSTNAME.data
 
-echo "Wait for ssh port to be opened"
-sleep 300
-
 SRC_IP=$(hostname -I)
 nova list|grep $INSTNAME|grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'|grep '10.0.0' > $INSTNAME.ip
 

@@ -9,6 +9,9 @@ echo "Starting App Instance"
 echo "Starting DB Instance"
 /bin/bash ./start-instance.sh $DBINSTNAME
 
+echo "Wait for ssh port to be opened"
+sleep 300
+
 SRC_IP=$(hostname -I)
 
 ansible-playbook deploy-case-1-db-\[1\].yml -i $DBINSTNAME.ip --private-key=$DBINSTNAME.pem -u ubuntu -v -e "repo_ip=$SRC_IP"

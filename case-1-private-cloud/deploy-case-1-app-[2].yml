@@ -21,7 +21,7 @@
     ##
     # Deploy web-application
     - name: Deploy application archive 
-      copy: src=/home/out/case-0/expenses.war dest=/var/lib/tomcat7/webapps
+      copy: src=/home/out/case-1/expenses.war dest=/var/lib/tomcat7/webapps
 
     - name: Restart Tomcat 7
       action: service name=tomcat7 state=restarted
