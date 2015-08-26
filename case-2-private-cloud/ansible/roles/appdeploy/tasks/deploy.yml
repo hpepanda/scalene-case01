@@ -2,7 +2,7 @@
   file: path=/var/lib/tomcat7/webapps/expenses state=directory
 
 - name: Deploy application archive
-  unarchive: src=/tmp/expenses.war dest=/var/lib/tomcat7/webapps/expenses copy=no
+  unarchive: src={{bin_path}}/expenses.war dest=/var/lib/tomcat7/webapps/expenses copy=no
 
 - name: Update connection string
   template: src=application.properties

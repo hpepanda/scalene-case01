@@ -13,4 +13,4 @@
   
 - name: Start cluster slave service
   raw: sudo service mysql start
-  when: galera_master == "False" and galera_add_node == "False"
+  when: galera_master == "False"

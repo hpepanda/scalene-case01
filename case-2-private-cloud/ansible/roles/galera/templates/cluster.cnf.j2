@@ -16,12 +16,12 @@ wsrep_sst_auth={{ galera_cluster_user }}:{{ galera_cluster_password }}
 wsrep_node_name="{{ ansible_fqdn }}"
 
 
-{% if galera_add_node == "False" %}
-	{% if galera_master == "True" %}
-		wsrep_cluster_address=gcomm://
-	{% else %}
-		wsrep_cluster_address="gcomm://{{ galera_cluster_members }}"
-	{% endif %}
+
+{% if galera_master == "True" %}
+	wsrep_cluster_address=gcomm://
+{% else %}
+	wsrep_cluster_address="gcomm://{{ galera_cluster_members }}"
 {% endif %}
+
 
 wsrep_node_address="{{ galera_node_ip }}"

@@ -7,6 +7,5 @@
   sudo: yes
   
   roles:
-  - tomcat
-#  - java7
-  - appdeploy
+   - tomcat
+   - appdeploy

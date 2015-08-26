@@ -1,2 +1,0 @@
-- name: Copy expenses.war to server
-  copy: src=expenses.war dest=/tmp/expenses.war

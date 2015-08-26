@@ -1,0 +1,75 @@
+---
+
+- hosts: case2_haProxyDb:case2_dbMaster:case2_dbSlave:case2_app:case2_haProxyApp
+  sudo: yes
+  vars:
+   repo_ip: "{{ lookup('env', 'PACKAGES_REPOSITORY_IP') }}"
+  roles:
+    - config_src_list
+
+- hosts: case2_haProxyDb
+  sudo: yes
+  roles:
+    - haproxydb
+
+- hosts: case2_dbMaster
+  sudo: yes
+  vars:
+   galera_node_ip: "{{ inventory_hostname }}"
+   galera_master: "True"
+  roles:
+    - galera
+
+- hosts: case2_dbSlave
+  sudo: yes
+  vars:
+   galera_node_ip: "{{ inventory_hostname }}"
+   galera_cluster_members: "{{ groups['case2_dbMaster']|join(',')~','~groups['case2_dbSlave']|join(',') }}"
+   galera_master: "False"
+  roles:
+    - galera
+
+
+- hosts: case2_haProxyDb
+  sudo: yes
+  vars:
+   ipaddr: "{{ item.1 }}"
+   node_name: "{{ 'mysql-slave'~item.0 }}"
+  tasks:
+   - name: Addind server to haproxy
+     lineinfile: dest=/etc/haproxy/haproxy.cfg line='    server {{ node_name }} {{ ipaddr }}:3306 check weight 1'
+     with_indexed_items: "{{ groups['case2_dbSlave'] }}"
+
+   - name: Restart haproxy
+     service: name=haproxy state=restarted
+
+
+- hosts: case2_dbMaster
+  sudo: yes
+  roles:
+    - createdb
+
+- hosts: case2_app
+  sudo: yes
+  vars:
+   dbproxy_ip: "{{ groups['case2_haProxyDb'][0] }}"
+   bin_path: "{{ lookup('env', 'CASE_2_LOCAL') }}"
+  roles:
+    - tomcat
+    - appdeploy
+
+
+- hosts: case2_haProxyApp
+  sudo: yes
+  vars:
+   ipaddr: "{{ item.1 }}"
+   node_name: "{{ 'tomcat-app'~item.0 }}"
+  roles:
+    - haproxyapp
+  tasks:
+   - name: Addind server to haproxy
+     lineinfile: dest=/etc/haproxy/haproxy.cfg line='    server {{ node_name }} {{ ipaddr }}:8080 cookie A check'
+     with_indexed_items: "{{ groups['case2_app'] }}"
+
+   - name: restart haproxy
+     service: name=haproxy state=restarted
