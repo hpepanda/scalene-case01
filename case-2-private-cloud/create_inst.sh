@@ -28,7 +28,7 @@ case $INSTYPE in
         sleep 300 #for ssh port to be opened
 
         ansible-playbook ansible/config_src_list.yml -i local_ip/$INSTNAME --private-key=keys/$CLUSTER_PREFIX.pem -u ubuntu -e "repo_ip=$PACKAGES_REPOSITORY_IP" -v
-        ansible-playbook ansible/appdeploy.yml -i local_ip/$INSTNAME --private-key=keys/$CLUSTER_PREFIX.pem -u ubuntu -e "dbproxy_ip=$DB_PROXY_LOCAL_IP" -e "bin_path=$CASE_2_LOCAL" -v
+        ansible-playbook ansible/appdeploy.yml -i local_ip/$INSTNAME --private-key=keys/$CLUSTER_PREFIX.pem -u ubuntu -e "dbproxy_ip=$DB_PROXY_LOCAL_IP" -e "bin_path=$CASE_2_BIN" -v
         ;;
 	4)
         echo "Create DB HA Proxy instance"

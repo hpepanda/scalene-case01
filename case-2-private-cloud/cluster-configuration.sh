@@ -42,4 +42,9 @@ export MYSQL_COUNT=3
 #
 # Packages local repository ip
 #
-export PACKAGES_REPOSITORY_IP=$(hostname -I)
+export PACKAGES_REPOSITORY_IP=$(hostname -I | xargs)
+
+#
+# Path to folder with compiled expenses.war file
+#
+export CASE_2_BIN=/home/out/case-2

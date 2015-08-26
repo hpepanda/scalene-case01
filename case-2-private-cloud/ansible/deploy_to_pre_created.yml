@@ -53,7 +53,7 @@
   sudo: yes
   vars:
    dbproxy_ip: "{{ groups['case2_haProxyDb'][0] }}"
-   bin_path: "{{ lookup('env', 'CASE_2_LOCAL') }}"
+   bin_path: "{{ lookup('env', 'CASE_2_BIN') }}"
   roles:
     - tomcat
     - appdeploy
