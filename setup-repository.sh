@@ -31,3 +31,10 @@ apt-get -y --force-yes --install-recommends install ${JAVA_PACKAGES[*]}
 
 #Install Apache Maven
 apt-get --force-yes install maven2
+
+cat <<EOF >> /etc/ssh/ssh_config
+
+Host 10.0.0.*
+   StrictHostKeyChecking no
+   UserKnownHostsFile /dev/null
+EOF

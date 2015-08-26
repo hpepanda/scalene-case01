@@ -14,7 +14,7 @@ mkdir -p $CASE_2_LOCAL
 git clone $CASE_2_REPO $CASE_2_LOCAL
 
 #compile src
-source ./compile-src.sh $CASE_2_LOCAL/source/demo-case2 /home/out/case-2
+source ./compile-src.sh $CASE_2_LOCAL/source/demo-case2 $HPSA_BINARY/case-2
 
 #update packages index file
 source ./create-index-file.sh

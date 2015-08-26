@@ -10,7 +10,7 @@ mkdir -p $CASE_0_LOCAL
 git clone $CASE_0_REPO $CASE_0_LOCAL
 
 #compile src
-source ./compile-src.sh $CASE_0_LOCAL/source /home/out/case-0
+source ./compile-src.sh $CASE_0_LOCAL/source $HPSA_BINARY/case-0
 
 #update packages index file
 source ./create-index-file.sh
