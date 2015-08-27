@@ -6,13 +6,14 @@ INSTNAME=$1
 nova keypair-add $INSTNAME > $INSTNAME.pem
 
 # create and lauch new Instance from th image "Ubuntu Server 14.04.1 LTS (amd64 20150706) - Partner Image" and store info about instance in the file
-nova boot --flavor "101" --image "564be9dd-5a06-4a26-ba50-9453f972e483" --key_name "$INSTNAME" --security_groups "DemoHAProxyAppSec,tomcat-sg,default" $INSTNAME --nic net-id=$NETID > $INSTNAME.data
+nova boot --flavor "101" --image "564be9dd-5a06-4a26-ba50-9453f972e483" --key_name "$INSTNAME" --security_groups "DemoHAProxyAppSec,tomcat-sg,default" $INSTNAME --poll --user-data hosts.sh --nic net-id=$NETID > $INSTNAME.data
+
+sleep 30 # delay for nw_info cache renew. see https://bugs.launchpad.net/nova/+bug/1249065
 
 # sec fix to use keyfile and disallow access to the file with all data about new instance
 chmod 400 $INSTNAME.pem
 chmod 400 $INSTNAME.data
 
-SRC_IP=$(hostname -I)
 nova list|grep $INSTNAME|grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'|grep '10.0.0' > $INSTNAME.ip
 
 echo "Now You can login into new instance via SSH"
