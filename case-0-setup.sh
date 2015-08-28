@@ -4,6 +4,7 @@
 apt-get -y --force-yes install ${MYSQL_DB_PACKAGES[*]}
 apt-get -y --force-yes install tomcat7
 
+rm -rf $CASE_0_LOCAL
 mkdir -p $CASE_0_LOCAL
 
 #Get src from remote repository

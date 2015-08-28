@@ -8,6 +8,7 @@ apt-get update
 apt-get -y --force-yes install ${GALERA_PACKAGES[*]}
 apt-get -y --force-yes install ${TOMCAT_PACKAGES[*]}
 
+rm -rf $CASE_2_LOCAL
 mkdir -p $CASE_2_LOCAL
 
 #Get src from remote repository
