@@ -1,0 +1,17 @@
+- name: Create DB
+  mysql_db:
+    name={{ app_db_name }}
+    login_user={{ app_mysql_user }}
+    login_password={{ app_mysql_password }}
+    state=present
+
+- name: Copy Dump file
+  copy: src=dump.sql dest=/tmp
+
+- name: Setup from Dump
+  mysql_db:
+    name={{ app_db_name }}
+    login_user={{ app_mysql_user }}
+    login_password={{ app_mysql_password }}
+    target=/tmp/dump.sql
+    state=import

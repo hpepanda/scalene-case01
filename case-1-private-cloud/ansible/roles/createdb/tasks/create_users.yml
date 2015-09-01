@@ -1,0 +1,15 @@
+#
+# MySQL Authentication
+#
+- name: MySQL | Authentication
+  mysql_user: name=root host={{ item }} password={{ mysql_password }} state=present update_password=always
+  with_items:
+    - $ansible_hostname
+    - 127.0.0.1
+    - ::1
+    - localhost
+  mysql_user:
+    name={{ app_mysql_user }}
+    host=%
+    priv=*.*:ALL,GRANT state=present
+    password={{ app_mysql_password }}

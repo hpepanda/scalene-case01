@@ -1,0 +1,17 @@
+##
+# Apt package installation of required software.
+#
+- name: Insall MySQL
+  action: apt pkg={{ item }} state=installed update_cache=yes force=yes
+  with_items:
+    - mysql-server
+    - mysql-client
+    - unzip
+    - python-mysqldb
+
+##
+# MySQL database setup.
+#
+- name: MySQL | Configuration file, my.cnf
+  action: template src=etc-mysql-my-cnf.j2.yaml dest=/etc/mysql/my.cnf
+  notify: Restart MySQL

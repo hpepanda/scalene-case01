@@ -1,22 +1,25 @@
+#!bin/bash
 
-#!/bin/bash
-echo "Enter App Instance Name"
-read APPINSTNAME
-echo "Enter DB Instance Name"
-read DBINSTNAME
+echo "Enter app prefix name"
+read APP_PREFIX
+
+export APP_PREFIX
+export SRC_IP=$(hostname -I | xargs)
+
+# create rsa keypair for the Instance
+nova keypair-add $APP_PREFIX > $APP_PREFIX.pem
+chmod 400 $APP_PREFIX.pem
+
 echo "Starting App Instance"
-/bin/bash ./start-instance.sh $APPINSTNAME
+source start-instance.sh "$APP_PREFIX-app"
+
 echo "Starting DB Instance"
-/bin/bash ./start-instance.sh $DBINSTNAME
+source start-instance.sh "$APP_PREFIX-db"
+
+source make-hosts-config.sh "$(<"$APP_PREFIX-app".ip)" "$(<"$APP_PREFIX-db".ip)"
 
 echo "Wait for ssh port to be opened"
 sleep 300
-
-SRC_IP=$(hostname -I)
-
-ansible-playbook deploy-case-1-db-\[1\].yml -i $DBINSTNAME.ip --private-key=$DBINSTNAME.pem -u ubuntu -v -e "repo_ip=$SRC_IP"
-
-sed -i "s/localhost/$(< $DBINSTNAME.ip)/g" ../source/demo-case2/src/main/resources/application.properties
+sed -i "s/localhost/$(< "$APP_PREFIX-db".ip)/g" ../source/demo-case2/src/main/resources/application.properties
 compile-src.sh ../source/demo-case2 /home/out/case-1
-
-ansible-playbook deploy-case-1-app-\[2\].yml -i $APPINSTNAME.ip --private-key=$APPINSTNAME.pem -u ubuntu -v -e "repo_ip=$SRC_IP"
+ansible-playbook ansible/deploy-case-1.yml -i hosts-config.ini --private-key=$APP_PREFIX.pem -u ubuntu -v

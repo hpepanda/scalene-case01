@@ -1,0 +1,21 @@
+---
+
+- hosts: [all]
+  sudo: yes
+  roles:
+   - config_src_list
+
+
+- hosts: case1_db
+  sudo: yes
+  roles:
+   - setup_mysql
+   - createdb
+
+
+- hosts: case1_app
+  sudo: yes
+  roles:
+   - appdeploy
+
+
