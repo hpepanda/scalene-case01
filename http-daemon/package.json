@@ -1,0 +1,10 @@
+{
+  "name": "http-daemon",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "busboy": "^0.2.9",
+    "express": "^4.13.3",
+    "forever": "^0.15.1"
+  }
+}
