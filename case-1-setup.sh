@@ -15,3 +15,5 @@ source ./compile-src.sh $CASE_1_LOCAL/source/demo-case2 $HPSA_BINARY/case-1
 
 #update packages index file
 source ./create-index-file.sh
+
+chmod +x ./case-1-deploy

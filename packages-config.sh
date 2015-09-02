@@ -8,6 +8,7 @@ COMMON_PACKAGES[4]=default-jdk
 COMMON_PACKAGES[5]=haproxy
 COMMON_PACKAGES[6]=python-novaclient
 COMMON_PACKAGES[7]=mc
+COMMON_PACKAGES[8]=inotify-tools
 
 MYSQL_DB_PACKAGES[0]=python-mysqldb
 MYSQL_DB_PACKAGES[1]=mysql-client

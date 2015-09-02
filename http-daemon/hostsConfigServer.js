@@ -12,6 +12,21 @@ hostConfigServer.use(express.static('public'));
 hostConfigServer.use(bodyParser.urlencoded({ extended: true }));
 hostConfigServer.use(bodyParser.json({ type: 'application/json' }));
 
+var hosts = {
+    'case1_db': null,
+    'case1_app': null
+};
+
+var writeHostsIni = function(){
+    var res = "";
+    for (var group in hosts) {
+        if (hosts.hasOwnProperty(group)) {
+            res+='['+group+']\r\n'+hosts[group]+'\r\n\r\n';
+        }
+    }
+    fs.writeFile("hosts-config/hosts-config.ini", res);
+};
+
 hostConfigServer.post('/', function(req, res){
     var bb = new Busboy({headers: req.headers});
     bb.on('file', function(fieldname, file) {
@@ -19,13 +34,15 @@ hostConfigServer.post('/', function(req, res){
         file.pipe(fs.createWriteStream(saveTo));
     });
     bb.on('field', function(fieldname, val) {
-        console.log(fieldname + ':' + inspect(val));
+        console.log(fieldname +':'+val);
+        hosts[fieldname]=val;
     });
     bb.on('finish', function() {
+        writeHostsIni();
         res.sendStatus(200);
     });
     return req.pipe(bb);
 });
 
-hostConfigServer.listen(8081);
+hostConfigServer.listen(80);
 
