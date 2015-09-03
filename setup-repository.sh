@@ -1,5 +1,8 @@
 #! /bin/bash
 
+apt-get install software-properties-common
+apt-add-repository ppa:ansible/ansible
+
 #Update APT package cache
 apt-get update
 
@@ -32,9 +35,21 @@ apt-get -y --force-yes --install-recommends install ${JAVA_PACKAGES[*]}
 #Install Apache Maven
 apt-get --force-yes install maven2
 
+#Get sources from git, compile java for each case
+source ./case-0-setup.sh
+source ./case-1-setup.sh
+source ./case-2-setup.sh
+
+#For skipping verification
 cat <<EOF >> /etc/ssh/ssh_config
 
 Host 10.0.0.*
    StrictHostKeyChecking no
    UserKnownHostsFile /dev/null
 EOF
+
+#Launch services
+source ./http-daemon/install-start-daemon.sh
+mkdir http-daemon/hosts-config
+
+source ./hosts-config-watcher

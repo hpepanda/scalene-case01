@@ -2,7 +2,7 @@
 
 #install required packages
 apt-get -y --force-yes install ${MYSQL_DB_PACKAGES[*]}
-apt-get -y --force-yes install tomcat7
+apt-get -y --force-yes install ${TOMCAT_PACKAGES[*]}
 
 rm -rf $CASE_1_LOCAL
 mkdir -p $CASE_1_LOCAL
