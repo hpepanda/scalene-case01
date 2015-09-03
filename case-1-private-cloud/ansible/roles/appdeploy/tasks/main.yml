@@ -1,5 +1,3 @@
-- name: Install Packages
-  apt: name=tomcat7 state=present update_cache=yes force=yes
-
-- name: Deploy application archive
-  copy: src=/home/out/case-1/expenses.war dest=/var/lib/tomcat7/webapps
+- include: install_unzip.yml
+- include: copy_bin.yml
+- include: deploy.yml

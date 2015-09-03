@@ -17,7 +17,9 @@
   sudo: yes
   vars:
     db_ip: "{{ lookup('env', 'CASE1_DB_IP') }}"
+    bin_path: "{{ lookup('env', 'CASE_1_BIN') }}"
   roles:
+   - tomcat
    - appdeploy
 
 

@@ -23,6 +23,5 @@ export CASE1_DB_IP=$(<"$APP_PREFIX-db".ip)
 
 echo "Wait for ssh port to be opened"
 sleep 300
-sed -i "s/localhost/$(< "$APP_PREFIX-db".ip)/g" ../source/demo-case2/src/main/resources/application.properties
-compile-src.sh ../source/demo-case2 /home/out/case-1
+
 ansible-playbook ansible/deploy-case-1.yml -i hosts-config.ini --private-key=$APP_PREFIX.pem -u ubuntu -v

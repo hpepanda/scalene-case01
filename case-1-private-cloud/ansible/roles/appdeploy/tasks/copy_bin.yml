@@ -1,0 +1,2 @@
+- name: Copy expenses.war to server
+  copy: src={{bin_path}}/expenses.war dest=/var/lib/tomcat7/webapps
