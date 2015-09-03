@@ -5,6 +5,7 @@ read APP_PREFIX
 
 export APP_PREFIX
 export SRC_IP=$(hostname -I | xargs)
+export CASE_1_BIN=/home/out/case-1
 
 # create rsa keypair for the Instance
 nova keypair-add $APP_PREFIX > $APP_PREFIX.pem
@@ -17,6 +18,8 @@ echo "Starting DB Instance"
 source start-instance.sh "$APP_PREFIX-db"
 
 source make-hosts-config.sh "$(<"$APP_PREFIX-app".ip)" "$(<"$APP_PREFIX-db".ip)"
+
+export CASE1_DB_IP=$(<"$APP_PREFIX-db".ip)
 
 echo "Wait for ssh port to be opened"
 sleep 300
