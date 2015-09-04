@@ -16,7 +16,7 @@
 - hosts: case1_app
   sudo: yes
   vars:
-    db_ip: "{{ lookup('env', 'CASE1_DB_IP') }}"
+    db_ip: "{{ groups['case1_db'][0] }}"
     bin_path: "{{ lookup('env', 'CASE_1_BIN') }}"
   roles:
    - tomcat
