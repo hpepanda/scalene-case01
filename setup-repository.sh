@@ -49,7 +49,5 @@ Host 10.0.0.*
 EOF
 
 #Launch services
-source ./http-daemon/install-start-daemon.sh
-mkdir http-daemon/hosts-config
-
-source ./hosts-config-watcher
+cd http-daemon
+source install-start-daemon.sh

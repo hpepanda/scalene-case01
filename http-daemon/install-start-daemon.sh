@@ -6,3 +6,6 @@ sudo npm install
 
 sudo nodejs ./node_modules/forever/bin/forever start repositoryServer.js
 sudo nodejs ./node_modules/forever/bin/forever start hostsConfigServer.js
+
+mkdir hosts-config
+source hosts-config-watcher.sh
