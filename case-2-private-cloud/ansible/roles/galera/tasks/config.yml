@@ -10,7 +10,7 @@
 - name: Start cluster master service
   raw: sudo service mysql start --wsrep-new-cluster
   when: galera_master == "True"
-  
-- name: Start cluster slave service
-  raw: sudo service mysql start
+
+- name: Start slave service
+  include: start_slave.yml
   when: galera_master == "False"
