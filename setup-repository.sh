@@ -40,6 +40,9 @@ source ./case-0-setup.sh
 source ./case-1-setup.sh
 source ./case-2-setup.sh
 
+#Deploy case-0 to source vm
+source ./case-0-deploy.sh
+
 #For skipping verification
 cat <<EOF >> /etc/ssh/ssh_config
 
