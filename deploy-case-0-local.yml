@@ -1,0 +1,61 @@
+---
+- hosts: [all]
+  sudo: yes
+
+  vars:
+    mysql_password: p4ssw0rd
+    app_mysql_user: hpsa
+    app_mysql_password: demo
+    dump_path: ./database/dump_blob.sql
+    app_db_name: hpsa_demo
+
+  tasks:
+    ##
+    # MySQL database setup.
+    #
+    - name: MySQL | Configuration file, my.cnf
+      action: template src=templates/etc-mysql-my-cnf.j2.yaml dest=/etc/mysql/my.cnf
+
+    ##
+    # Restart services
+    #
+    - name: Restart MySQL
+      action: service name=mysql state=restarted
+
+    ##
+    # MySQL Authentication
+    #
+    - name: MySQL | Authentication
+      mysql_user: name=root host={{ item }} password={{ mysql_password }} state=present update_password=always
+      with_items:
+        - 127.0.0.1
+        - ::1
+        - localhost
+      mysql_user:
+        name={{ app_mysql_user }}
+        host=localhost
+        priv=*.*:ALL,GRANT state=present
+        password={{ app_mysql_password }}
+
+    - name: Create DB
+      mysql_db:
+        name={{ app_db_name }}
+        login_user={{ app_mysql_user }}
+        login_password={{ app_mysql_password }}
+        state=present
+
+    - name: Setup from Dump
+      mysql_db:
+        name={{ app_db_name }}
+        login_user={{ app_mysql_user }}
+        login_password={{ app_mysql_password }}
+        target={{dump_path}}
+        state=import
+
+    # Copy
+    - name: Deploy application archive
+      copy: src={{ lookup('env', 'CASE_0_BIN') }}/expenses.war dest=/var/lib/tomcat7/webapps
+
+    - name: Restart Tomcat 7
+      action: service name=tomcat7 state=restarted
+
