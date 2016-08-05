@@ -1,6 +1,0 @@
-- hosts: [all]
-  sudo: yes
-  vars:
-    - galera_cluster_name: demogaleracluster
-  roles:
-    - role: galera_stop

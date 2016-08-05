@@ -1,2 +1,0 @@
-- name: Stop galera cluster
-  raw: sudo service mysql stop 

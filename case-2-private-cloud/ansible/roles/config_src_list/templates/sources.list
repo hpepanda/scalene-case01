@@ -1,2 +1,0 @@
-#local packages repository
-deb http://{{ repo_ip }}:8008 ./

@@ -1,4 +1,0 @@
-- name: Addind server to haproxy
-  lineinfile: dest=/etc/haproxy/haproxy.cfg line='    server {{ node_name }} {{ ipaddr }}:3306 check weight 1' 
-  notify:
-     - restart haproxy 

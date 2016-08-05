@@ -1,8 +1,0 @@
-- name: Stop service
-  service: name=mysql state=stopped
-
-- name: Galera configuration file
-  template: src=cluster.cnf.j2 dest=/etc/mysql/conf.d/cluster.cnf owner=root group=root mode=0640
-
-- name: Start cluster slave service
-  service: name=mysql state=started

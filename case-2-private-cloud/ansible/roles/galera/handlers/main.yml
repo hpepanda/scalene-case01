@@ -1,9 +1,0 @@
-- name: restart mysql
-  service: name=mysql state=restarted
-
-- name: start cluster mysql
-  service: name=mysql state=started args=wsrep-new-cluster
-  sudo: yes
-
-- name: stop mysql
-  service: name=mysql state=stopped

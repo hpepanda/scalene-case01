@@ -1,6 +1,0 @@
-# Clone sources from git
-   - name: Get Case sources from GIT
-     git:
-        repo=https://hpsa:!Microsoft1@bitbucket.org/hpsa/hpdemo.git
-        dest=/tmp/hpsa
-

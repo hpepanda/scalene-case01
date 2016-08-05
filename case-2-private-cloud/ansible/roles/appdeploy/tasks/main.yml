@@ -1,3 +1,0 @@
-- include: install_unzip.yml
-- include: copy_bin.yml
-- include: deploy.yml

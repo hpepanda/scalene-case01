@@ -1,2 +1,0 @@
-- name: update index file
-  apt: update_cache=yes force=yes

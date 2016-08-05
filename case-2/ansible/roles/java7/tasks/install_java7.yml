@@ -1,4 +1,0 @@
-- name: Installing JDK 7
-  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
-  with_items:
-  - oracle-java7-installer

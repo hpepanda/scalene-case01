@@ -1,4 +1,0 @@
-- name: Addind server to haproxy
-  lineinfile: dest=/etc/haproxy/haproxy.cfg regexp='{{ ipaddr }}:*' state=absent
-  notify:
-   - restart haproxy 

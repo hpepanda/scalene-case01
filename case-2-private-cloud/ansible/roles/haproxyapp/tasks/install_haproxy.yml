@@ -1,6 +1,0 @@
-- name: Install HAProxy
-  apt: name=haproxy state=present update_cache=yes force=yes
-- name: Enable HAProxy init script
-  replace: dest='/etc/default/haproxy'
-    regexp='ENABLED=0'
-    replace='ENABLED=1'
