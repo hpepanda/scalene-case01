@@ -81,7 +81,7 @@ Creates 2 VMs with `nova` command and deploys database and application on the se
 
 ###Private cloud
 
-1. Run on MasterVM to deploy Scalene Case-1
+1. Run on MasterVM to deploy Scalene Case-1 
    ```
    sudo -s
    cd case-1-private-cloud  
