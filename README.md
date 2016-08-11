@@ -6,7 +6,7 @@ Tomcat+MySQL version of "Scalene Expense Manager" application available for depl
  * 1 host VM for both server and database
  * 2 host VMs - one for server and one for database
 
-Could be deployed in public cloud (connected to Internet) or private cloud (no Internet connection, requires pre-installed [MasterVM](http://git) to install all dependencies)
+Could be deployed in public cloud (connected to Internet) or private cloud (no Internet connection, requires pre-installed MasterVM to install all dependencies)
 
 ##Sub-projects
 
